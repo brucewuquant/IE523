@@ -4,7 +4,7 @@
 #include <cmath>
 #include <deque>
 #include <iostream>
-#include <stdio.h>
+
 
 using std::deque;
 
@@ -42,13 +42,14 @@ class Towers
 	}
 
 	// private member function: initializes the pegs and #disks on Peg 1
+	// dizhouw2:   #disks is n, #pegs is m
 	void initialize(int m, int n)
 	{
 		number_of_steps = 0;
 		number_of_pegs = m;
 		number_of_disks = n;
 
-		// dizhouw2: below initialize a deque < deque <int> >  data structure
+		// dizhouw2: add #disks to Peg 1 to initialize the hanoi problem
 
 		for (int i = 0; i < n; i++)
 		{
@@ -86,6 +87,7 @@ class Towers
 			std::cout << " (Illegal)" << std::endl;
 		// write the code for this part
 	}
+	// dizhouw2: below is code to move using only 3 pegs, will be useful in the void Move()
 	void Move_Using_Three_Pegs(int n, int source, int destination, int intermediate)
 	{
 		if (n > 0) {
@@ -107,7 +109,10 @@ class Towers
 			{
 				int m = pick_the_right_number_to_move(number_of_disks, free_peg_numbers.size());
 				// write the code for this part
+				// dizhouw2: keep track of the ith(in the deque data structure it is the front)peg by assign it to 
+				// free_peg_numbers_1 for multiple uses
 				int free_peg_numbers_1 = free_peg_numbers.front();
+				// dizhouw2: lose the ith(front) since it is omitted ( not free anymore )
 				free_peg_numbers.pop_front();
 				if (free_peg_numbers.size() > 1)
 				{
@@ -115,6 +120,7 @@ class Towers
 					Move(number_of_disks - m, source_peg_number, destination_peg_number, free_peg_numbers);
 					Move(m, free_peg_numbers_1, destination_peg_number, free_peg_numbers);
 				}
+				// dizhouw2: in the case intermediate is reduced to free_peg_numbers_1, the problem reduces to 3 pegs move
 				else {
 					Move_Using_Three_Pegs(number_of_disks, source_peg_number, destination_peg_number, free_peg_numbers_1);
 				}
@@ -144,6 +150,7 @@ class Towers
 		std::cout << "-----------------------------" << std::endl;
 		// write the code for this paert
 	}
+	// dizhouw2: initialize the Towers() structure similar to 2d-vector
 public:
 	Towers()
 	{
