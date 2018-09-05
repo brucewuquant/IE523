@@ -85,10 +85,11 @@ class Towers
 			std::cout << " (Illegal)" << std::endl;
 		// write the code for this part
 	}
-	void Move_Using_Three_Pegs(int n, char source, char destination, char intermediate)
+	void Move_Using_Three_Pegs(int n, int source, int destination, int intermediate)
 	{
 		if (n > 0) {
 			Move_Using_Three_Pegs(n - 1, source, intermediate, destination);
+			number_of_steps++;
 			move_top_disk(source, destination);
 			Move_Using_Three_Pegs(n - 1, intermediate, destination, source);
 		}
@@ -120,7 +121,6 @@ class Towers
 			}
 			    else {
 				// number_of_disks == 1
-				number_of_steps++;
 				Move_Using_Three_Pegs(number_of_disks, source_peg_number, destination_peg_number, free_peg_numbers.front());
 			}
 		}
