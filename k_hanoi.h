@@ -3,6 +3,8 @@
 
 #include <cmath>
 #include <deque>
+#include <iostream>
+#include <stdio.h>
 
 using std::deque;
 
@@ -53,7 +55,7 @@ class Towers
 			towers[0].push_back(i + 1);
 		}
 
-		
+
 
 
 
@@ -105,26 +107,26 @@ class Towers
 			if (number_of_disks > 1)
 			{
 				int m = pick_the_right_number_to_move(number_of_disks, free_peg_numbers.size());
-
-
+				// write the code for this part
 				int free_peg_numbers_1 = free_peg_numbers.front();
 				free_peg_numbers.pop_front();
-
 				if (free_peg_numbers.size() > 1)
 				{
 					Move(m, source_peg_number, free_peg_numbers_1, free_peg_numbers);
 					Move(number_of_disks - m, source_peg_number, destination_peg_number, free_peg_numbers);
 					Move(m, free_peg_numbers_1, destination_peg_number, free_peg_numbers);
 				}
-
-				// write the code for this part
+				else {
+					Move_Using_Three_Pegs(number_of_disks, source_peg_number, destination_peg_number, free_peg_numbers_1);
+				}
 			}
-			    else {
+			else {
 				// number_of_disks == 1
-				Move_Using_Three_Pegs(number_of_disks, source_peg_number, destination_peg_number, free_peg_numbers.front());
+				number_of_steps++;
+				move_top_disk(source_peg_number, destination_peg_number);
 			}
 		}
-			else {
+		else {
 			// there are no free pegs
 			number_of_steps++;
 			move_top_disk(source_peg_number, destination_peg_number);
