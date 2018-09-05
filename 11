@@ -1,0 +1,99 @@
+void move_top_disk(int source, int dest)
+	{
+		// write the code for this part
+		std::cout << "Move disk " << towers[source].front() << " from Peg ";
+		std::cout << source + 1 << " to Peg " << dest + 1;
+		towers[dest].push_front(towers[source].front());
+		towers[source].pop_front();
+		if (true == is_everything_legal())
+			std::cout << " (Legal)" << std::endl;
+		else
+			std::cout << " (Illegal)" << std::endl;
+	}
+
+	// recursive function that computes the required moves assuming we have 3 pegs
+	void Move_Using_Three_Pegs(int n, int source, int destination, int intermediate)
+	{
+		if (n > 0) {
+			Move_Using_Three_Pegs(n - 1, source, intermediate, destination);
+			number_of_steps++;
+			move_top_disk(source, destination);
+			Move_Using_Three_Pegs(n - 1, intermediate, destination, source);
+		}
+		/* if n == 0, do nothing */
+		return;
+	}
+
+	// private member function: recursive solution to the 3 Peg Tower of Hanoi
+	void Move(int number_of_disks, int source_peg_number, int destination_peg_number, deque <int> free_peg_numbers)
+	{
+		if (free_peg_numbers.size() != 0)
+		{
+			if (number_of_disks > 1)
+			{
+				int m = pick_the_right_number_to_move(number_of_disks, free_peg_numbers.size());
+				// write the code for this part
+				int intermediate_1 = free_peg_numbers.front();
+				free_peg_numbers.pop_front();
+				if (free_peg_numbers.size()>1)
+				{
+					Move(m, source_peg_number, intermediate_1, free_peg_numbers);
+					//Move_Using_Three_Pegs(m,source_peg_number, destination_peg_number,intermediate_2);
+					Move(number_of_disks - m, source_peg_number, destination_peg_number, free_peg_numbers);
+					Move(m, intermediate_1, destination_peg_number, free_peg_numbers);
+				}
+				else {
+					Move_Using_Three_Pegs(number_of_disks, source_peg_number, destination_peg_number, intermediate_1);
+				}
+			}
+			else {
+				// number_of_disks == 1
+				number_of_steps++;
+				move_top_disk(source_peg_number, destination_peg_number);
+			}
+		}
+		else {
+			// there are no free pegs
+			number_of_steps++;
+			move_top_disk(source_peg_number, destination_peg_number);
+		}
+	}
+
+	// private member function: prints the state of Peg m (m = 0, 1, 2)
+	void print_peg_state(int m)
+	{
+		// write the code for this paert
+		std::cout << "-----------------------------" << std::endl;
+		std::cout << "State of Peg " << m + 1 << " (Top to Bottom): ";
+		for (int i = 0; i < towers[m].size(); i++)
+			std::cout << towers[m][i] << " ";
+		std::cout << std::endl;
+		std::cout << "Number of Steps = " << number_of_steps << std::endl;
+		std::cout << "-----------------------------" << std::endl;
+	}
+public:
+	Towers()
+	{
+		for (int i = 0; i < number_of_pegs; i++)
+		{
+			deque <int> peg;
+			towers.push_back(peg);
+		}
+	}
+	// Solves the K Peg Tower of Hanoi
+	void solve(int number_of_pegs, int number_of_disks)
+	{
+		initialize(number_of_pegs, number_of_disks);
+		print_peg_state(0);
+
+		deque <int> free_peg_numbers;
+		// source peg # is 0; destination peg # is no_of_pegs-1; 
+		// free pegs {1,.., no_of_pegs-2}
+		for (int i = 1; i <= number_of_pegs - 2; i++)
+			free_peg_numbers.push_back(i);
+		Move(number_of_disks, 0, number_of_pegs - 1, free_peg_numbers);
+		print_peg_state(number_of_pegs - 1);
+	}
+};
+
+#endif 
