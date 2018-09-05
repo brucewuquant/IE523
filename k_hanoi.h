@@ -1,5 +1,5 @@
-#ifndef K_HANOI_H
-#define K_HANOI_H
+#ifndef k_hanoi.h
+#define k_hanoi.h
 
 #include <cmath>
 #include <deque>
@@ -76,7 +76,6 @@ class Towers
 	// from the source peg to the destination peg -- and legality-check
 	void move_top_disk(int source, int dest)
 	{
-		number_of_steps++;
 		std::cout << "Move disk " << towers[source].front() << " from Peg ";
 		std::cout << source + 1 << " to Peg " << dest + 1;
 		towers[dest].push_front(towers[source].front());
@@ -146,7 +145,6 @@ class Towers
 		// write the code for this paert
 	}
 public:
-	// Solves the K Peg Tower of Hanoi
 	Towers()
 	{
 		for (int i = 0; i < number_of_pegs; i++)
