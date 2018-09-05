@@ -1,5 +1,5 @@
-#ifndef k_hanoi.h
-#define k_hanoi.h
+#ifndef K_HANOI_H
+#define K_HANOI_H
 
 #include <cmath>
 #include <deque>
