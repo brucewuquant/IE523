@@ -1,8 +1,10 @@
-// K Peg Tower of Hanoi Solution
 // Written by Prof. Sreenivas for IE523: Financial Computing
 
-#include <iostream>
 #include "k_hanoi.h"
+
+
+#include <iostream>
+
 
 int main(int argc, char * const argv[])
 {
