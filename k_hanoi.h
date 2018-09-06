@@ -29,6 +29,7 @@ class Towers
 	// is moved on top of a smaller disk during a move
 	bool is_everything_legal()
 	{
+		// write the code for this part
 		bool result = true;
 		for (int i = 0; i < number_of_pegs; i++)
 			for (int j = 0; j < towers[i].size(); j++)
@@ -37,8 +38,6 @@ class Towers
 						result = false;
 					}
 		return (result);
-		// write the code for this part
-
 	}
 
 	// private member function: initializes the pegs and #disks on Peg 1
@@ -48,6 +47,13 @@ class Towers
 		number_of_steps = 0;
 		number_of_pegs = m;
 		number_of_disks = n;
+
+		// dizhouw2: initialize the Towers() structure similar to 2d-vector in the bootcamp
+		for (int i = 0; i < number_of_pegs; i++)
+		{
+			deque <int> peg_temp;
+			towers.push_back(peg_temp);
+		}
 
 		// dizhouw2: add #disks to Peg 1 to initialize the hanoi problem
 
@@ -141,6 +147,7 @@ class Towers
 	// private member function: prints the state of Peg m (m = 0, 1, 2)
 	void print_peg_state(int m)
 	{
+		
 		std::cout << "-----------------------------" << std::endl;
 		std::cout << "State of Peg " << m + 1 << " (Top to Bottom): ";
 		for (int i = 0; i < towers[m].size(); i++)
@@ -150,16 +157,9 @@ class Towers
 		std::cout << "-----------------------------" << std::endl;
 		// write the code for this paert
 	}
-	// dizhouw2: initialize the Towers() structure similar to 2d-vector
+	
 public:
-	Towers()
-	{
-		for (int i = 0; i < number_of_pegs; i++)
-		{
-			deque <int> peg_temp;
-			towers.push_back(peg_temp);
-		}
-	}
+	
 	void solve(int number_of_pegs, int number_of_disks)
 	{
 		initialize(number_of_pegs, number_of_disks);
